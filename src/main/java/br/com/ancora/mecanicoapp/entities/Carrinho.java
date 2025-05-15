@@ -1,10 +1,10 @@
 package br.com.ancora.mecanicoapp.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CARRINHO")
@@ -17,15 +17,24 @@ public class Carrinho {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "idUsuario") // chave estrangeira no banco
-    private Usuario usuario;
+    @NotNull(message = "Usuário não encontrado!")
+    @Column(name = "ID_USUARIO")
+    private int idUsuario;
 
-    @ManyToOne
-    @JoinColumn(name = "idPeca") // chave estrangeira no banco
-    private Peca peca;
+    @NotNull(message = "Peça não encontrada!")
+    @Column(name = "ID_PECA")
+    private int idPeca;
 
+    @NotNull(message = "A quantidade deve ser informada!")
+    @Min(value = 1, message = "A quantidade deve ser ao menos 1 unidade")
+    @Column(name = "QUANTIDADE", nullable = false)
     private int quantidade;
-    private LocalDateTime dataCriacao;
+
+   // @PastOrPresent(message = "A data de criação deve ser válida!")
+    @Column(name = "DATA_CRIACAO")
+    private String dataCriacao;
+
+    @NotNull(message = "O total deve ser informado!")
+    @Column(name = "TOTAL", nullable = false)
     private double total;
 }

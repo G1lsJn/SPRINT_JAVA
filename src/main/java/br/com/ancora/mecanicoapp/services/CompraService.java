@@ -2,12 +2,14 @@ package br.com.ancora.mecanicoapp.services;
 
 import br.com.ancora.mecanicoapp.entities.Compra;
 import br.com.ancora.mecanicoapp.repositories.CompraRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class CompraService {
 
     @Autowired
@@ -24,8 +26,8 @@ public class CompraService {
     }
 
     // Remover uma compra
-    public void removerCompra(Compra compra) {
-        compraRepository.deleteById(compra.getId());
+    public void removerCompra(int id) {
+        compraRepository.deleteById(id);
     }
 
 }

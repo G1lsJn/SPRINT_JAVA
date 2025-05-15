@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PecaRepository extends JpaRepository<Peca, Integer> {
 
     public Peca findByNome(String nome);
-
     public Peca findById(int id);
 
 }

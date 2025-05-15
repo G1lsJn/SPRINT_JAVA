@@ -1,14 +1,17 @@
 package br.com.ancora.mecanicoapp.controllers;
 
 import br.com.ancora.mecanicoapp.entities.Compra;
-import br.com.ancora.mecanicoapp.entities.Peca;
 import br.com.ancora.mecanicoapp.services.CompraService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Validated
 @RequestMapping("/v1/compras")
 public class CompraController {
 
@@ -16,7 +19,7 @@ public class CompraController {
     private CompraService compraService;
 
     @PostMapping
-    public void adicionarCompra(@RequestBody Compra compra) {
+    public void adicionarCompra(@RequestBody @Valid Compra compra) {
         compraService.cadastrarCompra(compra);
     }
 
@@ -25,5 +28,9 @@ public class CompraController {
         return compraService.listarCompras();
     }
 
+    @DeleteMapping("/{id}")
+    public void deletarCompra(@PathVariable Integer id){
+        compraService.removerCompra(id);
+    }
 
 }
